@@ -6,23 +6,23 @@
 # Installation notes
 ## local installation
 Clone technomile's Heroku Buildpack:
-'''bash
+```bash
 git clone https://github.com/technomile/Heroku-WordPress.git wordpress
-'''
+```
 
 ## remote installation
 Create a heroku project and add necessary addons:
-'''bash
+```bash
 cd wordpress
 heroku create
 heroku addons:add clear:dbignite
 heroku addons:add newrelic:wayne
 heroku addons:add sendgrid:starter
-'''
+```
 Push the project to heroku:
-'''bash
+```bash
 git push heroku master
-'''
+```
 
 
 Check out more [documentation](http://technomile.github.io/wordpress/) to learn more about Heroku & WordPress and to set up your own instance.
