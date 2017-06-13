@@ -15,18 +15,20 @@ Here are the geberal steps we are going to take
 	* database
 	* file system
 	* wp-config
+	* create symlink
 4. Upgrade and Configure core, plugins, themes...
 5. Done. Move on. Remote Installation. 
 
-Clone technomile's Heroku Buildpack:
+###Clone technomile's Heroku Buildpack:
 ```bash
 git clone https://github.com/technomile/Heroku-WordPress.git wordpress
 ```
-Install local stack:
+###Install local stack:
 ```bash
 sudo apt install git apache2 mysql-server php libapache2-mod-php php-mcrypt php-mysql php-cli php-curl php-gd php-mbstring php-xml php-xmlrpc
 ```
-Configure git:
+###Configure git:
+exclude local only files from tracking:
 ```bash
 nano $GIT_DIR/info/exclude
 ```
@@ -38,6 +40,28 @@ then make sure git excludes any current changes:
 ```bash
 git update-index --assume-unchanged [<file>...]
 ```
+###Configure apache:
+Enable .htaccess Overrides:
+```bash
+sudo nano /etc/apache2/apache2.conf
+```
+set AllowOveride within the Directory block:
+```
+...
+<Directory /var/www/html/>
+	AllowOverride All
+</Directory>
+...
+```
+Enable rewrite module:
+```bash
+sudo a2enmod rewrite
+```
+restart Apache to implement changes:
+```bash
+service apache2 restart
+```
+
 ## remote installation
 Create a heroku project and add necessary addons:
 ```bash
