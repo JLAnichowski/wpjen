@@ -15,7 +15,6 @@ Here are the geberal steps we are going to take
 	* database
 	* file system
 	* wp-config
-	* create symlink
 4. Upgrade and Configure core, plugins, themes...
 5. Done. Move on. Remote Installation. 
 
@@ -81,6 +80,65 @@ CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 exit mySQL
 ```SQL
 EXIT;
+```
+### Configure the filesystem
+make a symlink in /var/www/html:
+```bash
+sudo ln -s $PROJECT_DIR /var/www/html/$PROJECT_DIR
+```
+set owner:group of local web files:
+```bash
+sudo chown -r $YOUR_USER_NAME:www-data /var/www/html
+```
+give group write access to wp-content dir:
+```bash
+sudo chmod g+w /var/www/html/wp-content
+```
+Do the same for these directories:
+```bash
+sudo chmod -R g+w /var/www/html/wp-content/themes
+sudo chmod -R g+w /var/www/html/wp-content/plugins
+```
+### Configure local wp-config.php
+resotre wp-config-sample to wp-config
+```bash
+mv wp-config.php wp-config.php.bak
+cp wp-config-sample.phop wp-config.php
+```
+get secure values from the WordPress API (copy the output):
+```bash
+curl -s https://api.wordpress.org/secret-key/1.1/salt/
+```
+edit wp-config.php:
+```
+...
+
+define('AUTH_KEY',         'VALUES COPIED FROM THE COMMAND LINE');
+define('SECURE_AUTH_KEY',  'VALUES COPIED FROM THE COMMAND LINE');
+define('LOGGED_IN_KEY',    'VALUES COPIED FROM THE COMMAND LINE');
+define('NONCE_KEY',        'VALUES COPIED FROM THE COMMAND LINE');
+define('AUTH_SALT',        'VALUES COPIED FROM THE COMMAND LINE');
+define('SECURE_AUTH_SALT', 'VALUES COPIED FROM THE COMMAND LINE');
+define('LOGGED_IN_SALT',   'VALUES COPIED FROM THE COMMAND LINE');
+define('NONCE_SALT',       'VALUES COPIED FROM THE COMMAND LINE');
+
+...
+...
+
+define('DB_NAME', 'wordpress');
+
+/** MySQL database username */
+define('DB_USER', 'wordpressuser');
+
+/** MySQL database password */
+define('DB_PASSWORD', 'password');
+
+...
+```
+At the end of wp-config.php:
+```
+...
+define('FS_METHOD','direct');
 ```
 
 ## remote installation
