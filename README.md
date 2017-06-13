@@ -19,15 +19,15 @@ Here are the geberal steps we are going to take
 4. Upgrade and Configure core, plugins, themes...
 5. Done. Move on. Remote Installation. 
 
-###Clone technomile's Heroku Buildpack:
+### Clone technomile's Heroku Buildpack:
 ```bash
 git clone https://github.com/technomile/Heroku-WordPress.git wordpress
 ```
-###Install local stack:
+### Install local stack:
 ```bash
 sudo apt install git apache2 mysql-server php libapache2-mod-php php-mcrypt php-mysql php-cli php-curl php-gd php-mbstring php-xml php-xmlrpc
 ```
-###Configure git:
+### Configure git:
 exclude local only files from tracking:
 ```bash
 nano $GIT_DIR/info/exclude
@@ -40,7 +40,7 @@ then make sure git excludes any current changes:
 ```bash
 git update-index --assume-unchanged [<file>...]
 ```
-###Configure apache:
+### Configure apache:
 Enable .htaccess Overrides:
 ```bash
 sudo nano /etc/apache2/apache2.conf
@@ -60,6 +60,27 @@ sudo a2enmod rewrite
 restart Apache to implement changes:
 ```bash
 service apache2 restart
+```
+### Configure mySQL database:
+log into mySQL with admin priv:
+```bash
+mysql -u root -p
+```
+create wordpress db:
+```SQL
+CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+```
+create a wordpress user
+```SQL
+GRANT ALL ON wordpress.* TO 'wordpressuser'@'localhost' IDENTIFIED BY 'password';
+```
+update the db with the changes:
+```SQL
+CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+```
+exit mySQL
+```SQL
+EXIT;
 ```
 
 ## remote installation
