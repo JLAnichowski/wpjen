@@ -7,6 +7,12 @@ jQuery(document).ready(function($) {
     $("#sendgrid-statistics-type").val(statisticsType);
     $(".sendgrid-statistics-header-toggle").hide();
     $("#sendgrid-" + statisticsType + "-statistics-header").show();
+
+    if (statisticsType != "wordpress" && statisticsType != "general")
+    {
+      $("#sendgrid-category-statistics-header").show();
+    }
+
     getStats(jQuery("#sendgrid-start-date").val(), jQuery("#sendgrid-end-date").val(), 'sendgrid_get_stats');
  });
   
@@ -109,7 +115,7 @@ jQuery(document).ready(function($) {
 
       /* Get stats from request */
       response = jQuery.parseJSON(response);
-      if (undefined != response.error) {
+      if (undefined != response.errors) {
         response = [];
       }
       jQuery.each(response, function(key, value) {
