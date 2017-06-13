@@ -75,7 +75,7 @@ GRANT ALL ON wordpress.* TO 'wordpressuser'@'localhost' IDENTIFIED BY 'password'
 ```
 update the db with the changes:
 ```SQL
-CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+FLUSH PRIVILEGES;
 ```
 exit mySQL
 ```SQL
