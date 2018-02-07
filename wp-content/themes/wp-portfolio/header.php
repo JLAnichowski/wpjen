@@ -11,7 +11,7 @@
 <html <?php language_attributes(); ?> class="no-js">
 <head>
 /**
- * for google verification for youtube.
+  // for google verification for youtube.
  */
 <meta name="google-site-verification" content="iVp-E-AOU2dFzldVaHI1Y1DsXYiLAwXK1hO01isI8Nw" />
 <meta charset="<?php bloginfo('charset');?>" />
